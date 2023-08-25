@@ -57,7 +57,7 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add a menu for Admins to edit Job Crafting
 - [ ] Add a menu for Admins to edit Job Equipment Tracker
 - [ ] Add Webhooks for Admins
-- [ ] Add a UI (ox_lib)
+- [x] Add a UI (ox_lib)
 - [ ] Add a UI (NativeUI)
 - [ ] Add a UI (esx_menu_default)
 - [ ] Add a UI (esx_menu_dialog)
