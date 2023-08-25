@@ -61,7 +61,6 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add a UI (NativeUI)
 - [ ] Add a UI (esx_menu_default)
 - [ ] Add a UI (esx_menu_dialog)
-- [ ] Add a UI (esx_menu_list)
 
 ## Features that are done:
 - [x] Add a Society System (esx_addonaccount // esx_society)
