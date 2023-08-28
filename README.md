@@ -35,7 +35,7 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add Job Inventory / Stash
 - [ ] Add Job Crafting System
 - [ ] Add Job Equipment Tracker
-- [ ] Add a menu for Admins to edit Jobs
+-
 - [ ] Add a menu for Admins to edit Job Vehicles
 - [ ] Add a menu for Admins to edit Job Weapons
 - [ ] Add a menu for Admins to edit Job Outfits
@@ -66,3 +66,4 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 ## Features that are done:
 - [x] Add a Society System (esx_addonaccount // esx_society)
 - [x] Add a Job Creation/Deletion/Edit System
+- [x] Add a menu for Admins to edit Jobs
