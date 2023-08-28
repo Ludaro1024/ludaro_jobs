@@ -28,6 +28,7 @@ if Config.Debug >= 2 then
     print("added command /addtosocietyaccount [name] [amount]")
     print("added command /takefromsocietyaccount [name] [amount]")
 
+
    RegisterCommand("getsocietyaccount", function(source, args, rawCommand)
     if isadmin() then 
         if args[1] then
@@ -83,6 +84,36 @@ if Config.Debug >= 2 then
           print(isadmin())
      end
     end)
+    print("added command /refreshjobs")
+    RegisterCommand("refreshjobs", function(source, args, rawCommand)
+        if isadmin() then 
+            TriggerServerEvent("ludaro_jobs:refreshjobs")
+        else
+            print(isadmin())
+        end
+    end)
 
-    
+    print("added command /createjob [job_name] [job_label] [grade]")
+    print("grade is optional")
+
+    RegisterCommand("createjob", function(source, args, rawCommand)
+        if isadmin() then 
+            if args[1] and args[2] then
+
+                local jobexist = doesjobexist(args[1])
+                if jobexist == nil or jobexist == false then
+                    print("job already exists")
+                    return
+                end
+                if not args[3] then
+                    print("grades are not given.. creating grade called " .. args[1] .. "_0")
+                end
+                TriggerServerEvent("ludaro_jobs:createjob", args[1], args[2], args[3] or nil)
+            else
+                print("Please provide both job_name and job_label.")
+            end
+        else
+            print(isadmin())
+        end
+    end)
 end

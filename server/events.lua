@@ -1,0 +1,18 @@
+RegisterNetEvent('ludaro_jobs:refreshjobs')
+AddEventHandler('ludaro_jobs:refreshjobs', function()
+    debug2("refreshing jobs", 2)
+refreshjobs()
+end)
+
+RegisterNetEvent('ludaro_jobs:createjob')
+AddEventHandler('ludaro_jobs:createjob', function(job_name, job_label, grade)
+    debug2("creating job", 2)
+    print(job_name, job_label, grade, source)
+    createjob(job_name, job_label, grade, source)
+end)
+
+RegisterNetEvent('ludaro_jobs:deletejob')
+AddEventHandler('ludaro_jobs:deletejob', function(job_name)
+    debug2("deleting job", 2)
+deletejob(job_name)
+end)

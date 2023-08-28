@@ -1,10 +1,8 @@
 
 -- FRAMEWORK 
-
 lib.callback.register('ludaro_jobs:getGroup', function(source)
     return getgroup(source)
 end)
-
 -- FRAMEWORK END
 
 -- ADDONACCOUNT DATA
@@ -24,5 +22,38 @@ end)
 lib.callback.register('ludaro_jobs:takefromsocietyaccount', function(source, name, howmuch)
     return takefromsocietyaccount(name, howmuch)
 end)
-
 -- ADDON ACCOUNT DATA END
+
+
+-- JOB STUFF
+lib.callback.register('ludaro_jobs:doesjobexist', function(source, name)
+    return lib.table.contains(ESX.GetJobs(), name)
+end)
+
+
+lib.callback.register('ludaro_jobs:getgrade', function(source, id)
+    return ESX.GetPlayerFromId(id or source).job.name
+end)
+
+lib.callback.register('ludaro_jobs:getjoblabel', function(source, id)
+    return ESX.GetPlayerFromId(id or source).job.name
+end)
+
+lib.callback.register('ludaro_jobs:getgradename', function(source, id)
+    return ESX.GetPlayerFromId(id or source).job.name
+end)
+
+lib.callback.register('ludaro_jobs:getjoblabel', function(source, id)
+    return ESX.GetPlayerFromId(id or source).job.name
+end)
+
+lib.callback.register('ludaro_jobs:getjobname', function(source, id)
+    return ESX.GetPlayerFromId(id or source).job.name
+end)
+
+lib.callback.register('ludaro_jobs:getjobs', function(source, id)
+    return ESX.GetJobs()
+end)
+-- JOB STUFF END
+
+

@@ -22,3 +22,12 @@ function isadmin()
         return false
     end
 end
+
+function locale(msg)
+    local translation = Config.Translation[Config.Locale][msg]
+    if translation then
+        return translation
+    else
+       return "translation not found: " .. msg
+    end
+end

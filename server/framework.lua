@@ -9,3 +9,11 @@ end
 function getgroup(id)
     return ESX.GetPlayerFromId(id).getGroup() or "user"
 end
+function locale(msg)
+    local translation = Config.Translation[Config.Locale][msg]
+    if translation then
+        return translation
+    else
+       return "translation not found: " .. msg
+    end
+end
