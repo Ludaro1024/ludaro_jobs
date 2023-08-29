@@ -49,11 +49,25 @@ end)
 
 RegisterNetEvent('ludaro_jobs:labelch')
 AddEventHandler('ludaro_jobs:labelch', function(old_label, new_label, grade)
-    print("wat")
     debug2("changing label", 2)
     if grade == nil then
 changelabel(old_label, new_label, source)
     else
         changegradelabel(old_label, new_label, grade, source)
     end
+end)
+
+
+RegisterNetEvent('ludaro_jobs:setwhitelist')
+AddEventHandler('ludaro_jobs:setwhitelist', function(jobname, value)
+    print("ah")
+    debug2("changing whitelist", 2)
+    print(jobname, value)
+    setwhitelist(jobname, value)
+end)
+
+RegisterNetEvent('ludaro_jobs:setbossmenu')
+AddEventHandler('ludaro_jobs:setbossmenu', function(job, value)
+    debug2("changing bossmenu", 2)
+    setbossmenu(job, value)
 end)

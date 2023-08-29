@@ -50,6 +50,7 @@ Config.Translation = {
         ["insertmoney"] = "Geld eingeben:",
         ["insertid"] = "ID eingeben:",
         ["deletegrade"] = "~r~Rang Löschen:",
+        ["whitelisted"] = "Ist Gewhitelisted?",
     },
     ['en'] = {
         ["adminmenu"] = "Ludaro-Jobs Admin Menu",

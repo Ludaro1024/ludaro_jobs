@@ -69,7 +69,14 @@ deletedjobs = {}
                 table.insert(changestuff, { job = v.label, label = newlabel})
             end
         end
+        whitelisted = false or lib.callback.await('ludaro_jobs:getwhitelist', false, v.name)
+        isWhitelistedadd = NativeUI.CreateCheckboxItem(locale("whitelisted"), false, "")
+        jobsmenu.SubMenu:AddItem(isWhitelistedadd)
+        isWhitelistedadd.Checked = whitelisted
 
+        isWhitelistedadd.CheckboxEvent = function(menu, item, checked)
+            table.insert(changestuff, { job = v.label, whitelist = checked})
+        end
   
         grade = _menuPool:AddSubMenu(jobsmenu.SubMenu, locale("grade"), "")
         _menuPool:RefreshIndex()
@@ -320,13 +327,19 @@ if isiconinjob == "❌" then
         confirm.SubMenu:AddItem(yes)
 
         yes.Activated = function(sender, index)
+            print(ESX.DumpTable(changestuff))
      for k,v in pairs(changestuff) do
+        
         if v.name then
             print("ah")
             TriggerServerEvent("ludaro_jobs:changename", v.job, v.name)
         end
         if v.label then
             TriggerServerEvent("ludaro_jobs:labelch", v.job, v.label)
+        end
+        if v.whitelist ~= nil then
+            
+            TriggerServerEvent("ludaro_jobs:setwhitelist", v.job, v.whitelist)
         end
      end
      _menuPool:CloseAllMenus()
@@ -359,8 +372,8 @@ end
         end
         end
         addjob.SubMenu:AddItem(label)
-        --isWhitelistedadd = NativeUI.CreateCheckboxItem(locale("whitelisted"), false, "")
-       -- addjob.SubMenu:AddItem(isWhitelistedadd)
+        isWhitelistedadd = NativeUI.CreateCheckboxItem(locale("whitelisted"), false, "")
+       addjob.SubMenu:AddItem(isWhitelistedadd)
 
         grades = _menuPool:AddSubMenu(addjob.SubMenu, locale("grades"), "")
         _menuPool:RefreshIndex()

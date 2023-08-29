@@ -2,6 +2,11 @@ if Config.AutoSQL then
     -- addon_account_data
     MySQL.ready(function()
         MySQL.Async.execute('CREATE TABLE IF NOT EXISTS addon_account_data (id INT AUTO_INCREMENT PRIMARY KEY, account_name VARCHAR(255), money INT, owner VARCHAR(255))', {})
+        local response = MySQL.query.await('SELECT `interactions` FROM `jobs`', {})
+        if response then
+        else
+        MySQL.Async.execute('ALTER TABLE jobs ADD COLUMN ludaro_jobs_info VARCHAR(255)', {})
+        end
     end)
 end
 
@@ -84,6 +89,58 @@ function getjob(id)
         return row.job or false
     else
         return xPlayer.job.name or false
+    end
+end
+
+
+
+function getwhitelist(jobname)
+    local row = MySQL.single.await('SELECT * FROM jobs WHERE `name` = ? LIMIT 1', {jobname})
+    if row then
+    return row.whitelisted
+    else
+        return false
+    end
+end
+
+function setwhitelist(jobname, value)
+    local row = MySQL.single.await('SELECT * FROM jobs WHERE `label` = ? LIMIT 1', {jobname})
+    if row then
+  vaLue = false
+        local result = MySQL.update.await('UPDATE jobs SET whitelisted = ? WHERE label = ?', {value, jobname})
+        print(result)
+        return result or false
+    else
+        return false
+    end
+end
+
+function getbossmenu(job)
+    local row = MySQL.single.await('SELECT * FROM jobs WHERE `name` = ? LIMIT 1', {job})
+    if row then
+        return json.decode(row.ludaro_jobs_info.bossmenu) or false
+    else
+        return false
+    end
+end
+
+function setbossmenu(job, value)
+    local row = MySQL.single.await('SELECT * FROM jobs WHERE `name` = ? LIMIT 1', {job})
+    
+    if row then
+        if row.ludaro_jobs_info then
+            local ludaro_jobs_info = json.decode(row.ludaro_jobs_info)
+            ludaro_jobs_info.bossmenu = value
+            local result = MySQL.update.await('UPDATE jobs SET ludaro_jobs_info = ? WHERE name = ?', {json.encode(ludaro_jobs_info), job})
+            print(result)
+            return result or false
+        else
+            local result = MySQL.update.await('UPDATE jobs SET ludaro_jobs_info = ? WHERE name = ?', {json.encode({bossmenu = value}), job})
+            print(result)
+            return result or false
+        end
+    else
+        return false
     end
 end
 
