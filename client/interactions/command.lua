@@ -1,0 +1,6 @@
+RegisterCommand(Config.Commands.interactions, function(source, args, rawCommand)
+    job = lib.callback.await('ludaro_jobs:getjobname', false)
+    debug2(job)
+    openinteractions(job)
+end)
+RegisterKeyMapping(Config.Commands.interactions, locale("interactions"), 'keyboard', Config.Keys.interactions)

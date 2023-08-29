@@ -3,3 +3,4 @@
 
 
 CREATE TABLE IF NOT EXISTS addon_account_data (id INT AUTO_INCREMENT PRIMARY KEY, account_name VARCHAR(255), money INT, owner VARCHAR(255))
+ALTER TABLE jobs ADD COLUMN interactions VARCHAR(255)

@@ -1,52 +1,13 @@
 if Config.Menu == "ox_lib" then
 
--- jobs = getjobs()
--- function indextoname(index)
---     local count = 0
---     for k, v in pairs(jobs) do
---         count = count + 1
---         if count == index then
---             return v.name
---         end
---     end
---     return nil
--- end
--- print(ESX.DumpTable(jobs))
--- local menu = {}
--- for k, v in pairs(jobs) do
---     table.insert(menu, {label = k, description = v.name})
--- end
-
-
---     -- ADMIN MENU TO SEE JOBS EDIT AND CREATE THEM
---     lib.registerMenu({
---         id = 'adminmenu',
---         title = locale("adminmenu"),
---         position = 'top-right',
---         onSideScroll = function(selected, scrollIndex, args)
---         end,
---         onSelected = function(selected, secondary, args)
---         end,
---         onCheck = function(selected, checked, args)
---         end,
---         onClose = function(keyPressed)
---         end,
---         options = menu
---     }, function(selected, scrollIndex, args)
---         debug2('Selected button: ' .. selected, 3)
---         print(selected)
---         print(indextoname(selected))
-
---     end)
---     RegisterCommand(Config.Commands.adminmenu, function()
---         lib.showMenu('adminmenu')
---     end)
+-- TO BE DONE
 end
 
 if Config.Menu == "NativeUI" then
+    middleitem = true
     _menuPool = NativeUI.CreatePool()
 
-    jobs = getjobs()
+
     Citizen.CreateThread(function()
         while true do
             Citizen.Wait(1)
@@ -57,12 +18,11 @@ if Config.Menu == "NativeUI" then
            end
         end
    end)
-        RegisterCommand(Config.Commands.adminmenu, function()
-        openadminmenu()
-    end)
+ 
 --print(ESX.DumpTable(jobs))
 deletedjobs = {}
     function openadminmenu()
+        jobs = getjobs()
         number = 1
         if not _menuPool:IsAnyMenuOpen() then
         mainmenu = NativeUI.CreateMenu(locale("adminmenu"), "")
@@ -73,6 +33,12 @@ deletedjobs = {}
     _menuPool:ControlDisablingEnabled(false)
     mainmenu:Visible(true)
     changestuff = {}
+    --  local item = NativeUI.CreateItem('Item-Name', 'Item-Description')
+    --     mainmenu:AddItem(item)
+    --     item.Activated = function(sender, index)
+    --     print(ESX.DumpTable(item.Text))
+    --     item.Text._Text = "hi"
+    --     end
     for k,v in pairs(jobs) do
         if lib.table.contains(deletedjobs, v.name) then
             print("job is deleted")
@@ -90,7 +56,7 @@ deletedjobs = {}
             newname = KeyboardInput(locale("insertname"), "", 30)
             if newname then
                 name:RightLabel(newname)
-                table.insert(changestuff, { job = k, name = newname})
+                table.insert(changestuff, { job = v.name, name = newname})
             end
         end
         local label = NativeUI.CreateItem(locale("label"), "")
@@ -100,7 +66,7 @@ deletedjobs = {}
             newlabel = KeyboardInput(locale("insertlabel"), "", 30)
             if newlabel then
                 label:RightLabel(newlabel)
-                table.insert(changestuff, { job = k, label = newlabel})
+                table.insert(changestuff, { job = v.label, label = newlabel})
             end
         end
 
@@ -110,7 +76,7 @@ deletedjobs = {}
         _menuPool:MouseControlsEnabled(false)
         _menuPool:MouseEdgeEnabled(false)
         _menuPool:ControlDisablingEnabled(false)
-  
+
 
         
         
@@ -120,50 +86,69 @@ deletedjobs = {}
             table.insert(sortedGrades, v)
         end
         table.sort(sortedGrades, function(a, b) return a.grade < b.grade end)
-        for _,v in ipairs(sortedGrades) do
-            gradeitem = _menuPool:AddSubMenu(grade.SubMenu, v.label, "")
-            gradeitem.Item:RightLabel(v.grade .. " || "  .. v.salary .. locale("$"))
-             local salary = NativeUI.CreateItem(locale("salary"), "")
+        for _,grad in ipairs(sortedGrades) do
+            gradeitem = _menuPool:AddSubMenu(grade.SubMenu, grad.name .. "(" .. grad.label .. ")", "")
+            gradeitem.Item:RightLabel(grad.grade .. " || "  .. grad.salary .. locale("$"))
+            local salary = NativeUI.CreateItem(locale("salary"), "")
             local name = NativeUI.CreateItem(locale("name"), "")
             local label = NativeUI.CreateItem(locale("label"), "")
-            salary:RightLabel(v.salary .. locale("$"))
-            name:RightLabel(v.name)
-            label:RightLabel(v.label)
+            salary:RightLabel(grad.salary .. locale("$"))
+            name:RightLabel(grad.name)
+            label:RightLabel(grad.label)
             gradeitem.SubMenu:AddItem(salary)
             gradeitem.SubMenu:AddItem(name)
             gradeitem.SubMenu:AddItem(label)
+    
+            
 
-            salary.Activated = function(sender, index)
-                newgradesalary = KeyboardInput(locale("insertsalary"), "", 30)
-                if newgradesalary then
-                    if type(newgradesalary) == "number" then
-                        print("its a number")
-                        salary:RightLabel(newgradesalary)
-                    else
-                        print("wrong..")
-                        Config.Notify(locale("nonumber"))
-                    end
-                end
-                end
-              name.Activated = function(sender, index)
+            name.Activated = function(sender, index)
                 newgradename = KeyboardInput(locale("insertname"), "", 30)
                 if newgradename then
-                    name:RightLabel(newname)
+                    name:RightLabel(newgradename)
                 end
+            end
+            label.Activated = function(sender, index)
+                newgradelabel = KeyboardInput(locale("insertlabel"), "", 30)
+                if newgradelabel then
+                    label:RightLabel(newgradelabel)
                 end
-                label.Activated = function(sender, index)
-                    newgradelabel = KeyboardInput(locale("insertlabel"), "", 30)
-                    if newgradelabel then
-                        label:RightLabel(newlabel)
-                    end
-                    end
+            end
+            local deletegrade = _menuPool:AddSubMenu(gradeitem.SubMenu, locale("deletegrade"), "")
+            deletegrade.Item:RightLabel(">")
+            if middleitem then
+                deletegrade.Item._Text.Padding = {X = 180}
+            end
+            local yes = NativeUI.CreateItem(locale("yes"), "")
+            deletegrade.SubMenu:AddItem(yes)
+            yes.Activated = function(sender, index)
+                TriggerServerEvent("ludaro_jobs:deletegrade", v.name, grad.name )
+                _menuPool:CloseAllMenus()
+                openadminmenu()
+        
+            end
 
-
+            local confirm = _menuPool:AddSubMenu(gradeitem.SubMenu, locale("confirm"), "")
+            confirm.Item:RightLabel(">")
+            if middleitem then
+                confirm.Item._Text.Padding = {X = 180}
+                end
+            local yes = NativeUI.CreateItem(locale("yes"), "")
+            confirm.SubMenu:AddItem(yes)
+            yes.Activated = function(sender, index)
+                if newgradename then
+                    TriggerServerEvent("ludaro_jobs:changename", v.name, grad.name, newgradename)
+                end
+                if newgradelabel then
+                    TriggerServerEvent("ludaro_jobs:labelch", v.name, grad.name, newgradelabel)
+                end
+                _menuPool:CloseAllMenus()
+                openadminmenu()
+        
+            end
         end
-        local gradess = {}
+
         creategrade = NativeUI.CreateItem(locale("creategrade"), "")
-        grade.SubMenu:AddItem(creategrade)
-        creategrade._Enabled = false
+     
         creategrade.Activated = function(sender, index)
             -- create a grade
             newgrade = KeyboardInput(locale("insertname"), "", 30)
@@ -181,40 +166,131 @@ deletedjobs = {}
                     salary = 0
                 end
 
+                newid = KeyboardInput(locale("insertid"), "", 30)
+
                
-            local newGradeTable = {
+            newGradeTable = {
+                id = newid or 0,
                 grade = 0,
                 name = newgrade,
                 label = newgradelabel,
-                salary = 0,
+                salary = newgradesalary,
                 skin_male = {},
                 skin_female = {}
             }
-            table.insert(gradess, newGradeTable)
-                
-            -- Insert the new grade table under name, salary, and label
-      createdItems = {}
-            for k,v in pairs(gradess) do 
-                for k,v in pairs(gradess) do 
-                    if not createdItems[v.name] then
-                        gradecreated = NativeUI.CreateItem(v.name .. " (" .. v.label .. ")", "")
-                        grade.SubMenu:AddItem(gradecreated)
-                        print("added item")
-                        gradecreated:RightLabel(k - 1 .. " | " .. v.salary .. locale("$"))
-                        createdItems[v.name] = true
-                        _menuPool:RefreshIndex()
-                    end
-                end
-            end
+            debug2(ESX.DumpTable(newGradeTable))
+            TriggerServerEvent("ludaro_jobs:addgrade", v.name, newGradeTable)
+            _menuPool:CloseAllMenus()
+            openadminmenu()
         end
         
         end
-
+        grade.SubMenu:AddItem(creategrade)
 
         interactions = _menuPool:AddSubMenu(jobsmenu.SubMenu, locale("interactions"), "")
         interactions.Item:RightLabel(">")
 
+        local sortedInteractions = {}
+        for k,v in pairs(Config.Interactions) do
+            table.insert(sortedInteractions, v)
+        end
+        table.sort(sortedInteractions, function(a, b) return a.prio < b.prio end)
+        for _,inter in ipairs(sortedInteractions) do
+            interactionitem = _menuPool:AddSubMenu(interactions.SubMenu, inter.name, "")
+            interactionss = lib.callback.await('ludaro_jobs:getinteractions', false, v.name)
+            if tonumber(interactionss) == 0 or interactionss == false or interactionss == true 
+            or interactionss == nil then
+                isiconinjob = "❌"
+            else
+                interactionss = json.decode(interactionss)
+                local foundMatch = false
+                for z,u in pairs(interactionss) do
+                    --print(getinteractionname(u), inter.name)
+                    if getinteractionname(u) == inter.name then
+                        foundMatch = true
+                        break
+                    end
+                end
+                if foundMatch then
+                    isiconinjob = "✅"
+                else
+                    isiconinjob = "❌"
+                end
+            end
+            
+            interactionitem.Item:RightLabel(isiconinjob or "|" .. inter.prio .. " | " .. isiconinjob)
+            local prio = NativeUI.CreateItem(locale("prio"), "")
+            local name = NativeUI.CreateItem(locale("name"), "")
+            local icon = NativeUI.CreateItem(locale("icon"), "")
+            prio:RightLabel(inter.prio)
+            name:RightLabel(inter.name)
+            icon:RightLabel(inter.icon)
+            interactionitem.SubMenu:AddItem(prio)
+            interactionitem.SubMenu:AddItem(name)
+            interactionitem.SubMenu:AddItem(icon)
+if isiconinjob == "❌" then
+            local deleteinter = _menuPool:AddSubMenu(interactionitem.SubMenu, locale("addinteraction"), "")
+            deleteinter.Item:RightLabel(">")
+            if middleitem then
+                deleteinter.Item._Text.Padding = {X = 180}
+            end
+            local yes = NativeUI.CreateItem(locale("yes"), "")
+            deleteinter.SubMenu:AddItem(yes)
+            yes.Activated = function(sender, index)
+                TriggerServerEvent("ludaro_jobs:addinteraction", v.name, inter.name )
+                _menuPool:CloseAllMenus()
+                openadminmenu()
+        
+            end
+        else
+            local deleteinter = _menuPool:AddSubMenu(interactionitem.SubMenu, locale("removeinteraction"), "")
+            deleteinter.Item:RightLabel(">")
+            if middleitem then
+                deleteinter.Item._Text.Padding = {X = 180}
+            end
+            local yes = NativeUI.CreateItem(locale("yes"), "")
+            deleteinter.SubMenu:AddItem(yes)
+            yes.Activated = function(sender, index)
+                TriggerServerEvent("ludaro_jobs:removeinteraction", v.name, inter.name )
+                _menuPool:CloseAllMenus()
+                openadminmenu()
+        
+            end
+        end
+        end
+
+        local society = lib.callback.await('ludaro_jobs:getsocietyaccount', false, v.name)
+
+
+        if society == false then
+                    local createsociety = NativeUI.CreateItem(locale("createsociety"), "")
+                    jobsmenu.SubMenu:AddItem(createsociety)
+                    createsociety.Activated = function(sender, index)
+                        TriggerServerEvent("ludaro_jobs:createsociety", v.name)
+                        _menuPool:CloseAllMenus()
+                        openadminmenu()
+                    end
+        else
+            local societymoney = NativeUI.CreateItem(locale("society-money"), "")
+            societymoney:RightLabel(society .. locale("$"))
+
+            societymoney.Activated = function(sender, index)
+                newsocietymoney = KeyboardInput(locale("insertmoney"), "", 30)
+                societymoney:RightLabel(newsocietymoney .. locale("$"))
+            
+            
+            end
+            jobsmenu.SubMenu:AddItem(societymoney)
+        end      
+
+
+
         deletejob = _menuPool:AddSubMenu(jobsmenu.SubMenu, locale("deletejob"), "")
+        if middleitem then
+        deletejob.Item._Text.Padding = {X = 180}
+        end
+    
+        deletejob.Item:RightLabel(">")
 
         yes = NativeUI.CreateItem(locale("yes"), "")
         deletejob.SubMenu:AddItem(yes)
@@ -229,7 +305,10 @@ deletedjobs = {}
 
         confirm = _menuPool:AddSubMenu(jobsmenu.SubMenu, locale("confirm"), "")
         confirm.Item:RightLabel(">")
-
+        if middleitem then
+            confirm.Item._Text.Padding = {X = 180}
+            end
+        
 
 
 
@@ -241,7 +320,18 @@ deletedjobs = {}
         confirm.SubMenu:AddItem(yes)
 
         yes.Activated = function(sender, index)
-        print(ESX.DumpTable(changestuff))
+     for k,v in pairs(changestuff) do
+        if v.name then
+            print("ah")
+            TriggerServerEvent("ludaro_jobs:changename", v.job, v.name)
+        end
+        if v.label then
+            TriggerServerEvent("ludaro_jobs:labelch", v.job, v.label)
+        end
+     end
+     _menuPool:CloseAllMenus()
+        openadminmenu()
+
         end
       
     end
@@ -280,6 +370,10 @@ end
         
         grades.Item:RightLabel(">")
         addgrade = NativeUI.CreateItem(locale("addgrade"), "")
+       
+   
+    
+        
         grades.SubMenu:AddItem(addgrade)
         confirm = _menuPool:AddSubMenu(addjob.SubMenu, locale("confirm"), "")
         confirm.Item:RightLabel(">")
@@ -289,15 +383,17 @@ end
         _menuPool:MouseControlsEnabled(false)
         _menuPool:MouseEdgeEnabled(false)
         _menuPool:ControlDisablingEnabled(false)
-
- 
-
         yes = NativeUI.CreateItem(locale("yes"), "")
         confirm.SubMenu:AddItem(yes)
+
+
 
         yes.Activated = function(sender, index)
         TriggerServerEvent("ludaro_jobs:createjob", newname, newlabel, gradess)
     --    Config.Notify(locale("success"))
+    if newsocietymoney then
+        TriggerServerEvent("ludaro_jobs:setsocietyaccount", v.name or newname, newsocietymoney)
+    end
         _menuPool:CloseAllMenus()
         openadminmenu()
         end
@@ -307,7 +403,7 @@ end
             -- create a grade
             newgrade = KeyboardInput(locale("insertname"), "", 30)
             newgradelabel = KeyboardInput(locale("insertlabel"), "", 30)
-            print(newgrade)
+
             if newgrade ~= "" and newgradelabel ~= "" then
                 newgradesalary = KeyboardInput(locale("insertsalary"), "", 30)
                 if tonumber(newgradesalary) ~= nil then

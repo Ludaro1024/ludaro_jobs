@@ -32,28 +32,28 @@ end)
 
 
 lib.callback.register('ludaro_jobs:getgrade', function(source, id)
-    return ESX.GetPlayerFromId(id or source).job.name
+    return ESX.GetPlayerFromId(id or source).job.grade
 end)
 
 lib.callback.register('ludaro_jobs:getjoblabel', function(source, id)
-    return ESX.GetPlayerFromId(id or source).job.name
+    return ESX.GetPlayerFromId(id or source).job.label
 end)
 
 lib.callback.register('ludaro_jobs:getgradename', function(source, id)
-    return ESX.GetPlayerFromId(id or source).job.name
-end)
-
-lib.callback.register('ludaro_jobs:getjoblabel', function(source, id)
-    return ESX.GetPlayerFromId(id or source).job.name
+    return ESX.GetPlayerFromId(id or source).job.grade_name
 end)
 
 lib.callback.register('ludaro_jobs:getjobname', function(source, id)
-    return ESX.GetPlayerFromId(id or source).job.name
+    return getjob(source or id)
 end)
 
 lib.callback.register('ludaro_jobs:getjobs', function(source, id)
-    return ESX.GetJobs()
+    return getjobs()
 end)
 -- JOB STUFF END
 
+-- INTERACTIONS
+lib.callback.register('ludaro_jobs:getinteractions', function(source, job)
+    return getinteractions(job)
+end)
 

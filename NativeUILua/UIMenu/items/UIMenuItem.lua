@@ -149,7 +149,7 @@ end
 ---@return table
 ---@public
 function UIMenuItem:RightLabel(Text, MainColour, HighlightColour)
-    print(Text)
+
     if MainColour ~= nil then
         labelMainColour = MainColour
     else

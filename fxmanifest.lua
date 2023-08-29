@@ -60,11 +60,13 @@ client_scripts {
 
 client_scripts{ 
 "client/*.lua", 
+"client/interactions/*.lua"
 }
 
 server_script { 
     '@oxmysql/lib/MySQL.lua',
-    "server/*.lua"
+    "server/*.lua",
+    "server/interactions/*.lua"
 }
 shared_scripts {
     '@ox_lib/init.lua',
