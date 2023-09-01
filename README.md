@@ -11,7 +11,7 @@ This script is heavily influenced by [renzu_jobs](https://github.com/renzuzu/ren
 This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs as soon as i can, if you find any be free to create an issue here on github or write me on discord,
 
 ## Features that will come:
-
+- [ ] Add a Job Creation/Deletion/Edit System
 - [ ] Add a Job Blip System
 - [ ] Add a Job Marker System
 - [ ] Add a Job Vehicle System (Job-Garage)
@@ -26,6 +26,8 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add a Job Uniform System
 - [ ] Add a Job Salary System (Ingame editable) (with Bonus)
 - [ ] Add a Job Boss System
+- [ ] Add Job Custom Interactions
+- [ ] Add Job Custom Actions
 - [ ] Add Job Duty System
 - [ ] Add Job Shops
 - [ ] Add Job Vehicleshops
@@ -33,6 +35,7 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add Job Inventory / Stash
 - [ ] Add Job Crafting System
 - [ ] Add Job Equipment Tracker
+- [ ] Add a menu for Admins to edit Jobs
 - [ ] Add a menu for Admins to edit Job Vehicles
 - [ ] Add a menu for Admins to edit Job Weapons
 - [ ] Add a menu for Admins to edit Job Outfits
@@ -55,15 +58,10 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 - [ ] Add a menu for Admins to edit Job Equipment Tracker
 - [ ] Add Webhooks for Admins
 - [ ] Add a UI (ox_lib)
-
+- [ ] Add a UI (NativeUI)
 - [ ] Add a UI (esx_menu_default)
 - [ ] Add a UI (esx_menu_dialog)
 - [ ] Add a UI (esx_menu_list)
 
 ## Features that are done:
-- [x] Add Job Custom Interactions
-- [x] Add Job Custom Actions
-- [x] Add a menu for Admins to edit Jobs
-- [x] Add a Job Creation/Deletion/Edit System
-- [x] Add a UI (NativeUI)
 - [x] Add a Society System (esx_addonaccount // esx_society)

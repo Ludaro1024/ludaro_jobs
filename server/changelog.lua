@@ -1,4 +1,3 @@
-
 changelog = {
     alpha01 = "Initial Release",
     alpha02 = "Added Job Menu",

@@ -1,7 +1,11 @@
 fx_version('cerulean')
 games({ 'gta5' })
 lua54 'yes'
-version "alpha04"
+name = "Ludaro_Jobs"
+version "alpha06"
+fx_raw "https://raw.githubusercontent.com/waschmaschvanlu/ludaro_jobs/main/fxmanifest.lua"
+github "https://github.com/waschmaschvanlu/ludaro_jobs"
+changelogfile "https://raw.githubusercontent.com/waschmaschvanlu/ludaro_jobs/main/server/changelog.lua"
 client_scripts {
     "NativeUILua/Wrapper/Utility.lua",
 
@@ -60,12 +64,17 @@ client_scripts {
 
 client_scripts{ 
 "client/*.lua", 
+"client/society/*.lua",
+"client/jobmenu/*.lua",
+"client/bossmenu/*.lua",
 "client/interactions/*.lua"
 }
 
 server_script { 
     '@oxmysql/lib/MySQL.lua',
     "server/*.lua",
+    "server/events_callbacks/*.lua",
+    "server/jobmenu/*.lua",
     "server/interactions/*.lua"
 }
 shared_scripts {

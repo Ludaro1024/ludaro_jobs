@@ -1,5 +1,5 @@
 Config = {}
-Config.Debug = 3 -- 0 = off, 1 = on -- 2 ALOT -- 3 EVERYTHING
+Config.Debug = 0 -- 0 = off, 1 = on -- 2 ALOT -- 3 EVERYTHING
 Config.Locale = 'de'
 Config.Menu = "NativeUI" -- ox_lib or NativeUI or NUI  CURRENTLY ONLY NATIVEUI
 Config.AdminGroups = {"admin", "owner"}

@@ -18,9 +18,4 @@ function debug2(msg, level)
     end
 end
 
-function print(msg)
-    debug2(msg)
-end
-
-
 print("Ludaro Debugging Loaded check readme for debug commands and prints!")
