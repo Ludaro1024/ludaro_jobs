@@ -1,7 +1,7 @@
 fx_version('cerulean')
 games({ 'gta5' })
 lua54 'yes'
-version "ALPHA"
+version "alpha04"
 client_scripts {
     "NativeUILua/Wrapper/Utility.lua",
 
