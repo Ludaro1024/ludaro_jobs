@@ -61,6 +61,12 @@ lib.callback.register('ludaro_jobs:getwhitelist', function(source, job)
     return getwhitelist(job)
 end)
 
-lib.callback.register('ludaro_jobs:getbossmenu', function(source, job, value)
-    return getbossmenu(job)
+lib.callback.register('ludaro_jobs:getjobinfo', function(source, job, value)
+    return getjobinfo(job)
 end)
+
+
+lib.callback.register('ludaro_jobs:getalljobinfo', function(source, job, value)
+ return getalljobinfo()
+end)
+

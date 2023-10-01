@@ -75,7 +75,8 @@ server_script {
     "server/*.lua",
     "server/events_callbacks/*.lua",
     "server/jobmenu/*.lua",
-    "server/interactions/*.lua"
+    "server/interactions/*.lua",
+    "server/bossmenu/*.lua"
 }
 shared_scripts {
     '@ox_lib/init.lua',
@@ -87,3 +88,5 @@ requires{
     'oxmysql',
     'esx_addonaccount'
 }
+
+

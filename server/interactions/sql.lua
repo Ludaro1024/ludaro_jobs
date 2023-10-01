@@ -1,12 +1,4 @@
-if Config.AutoSQL then
-    MySQL.ready(function()
-        local response = MySQL.query.await('SELECT `interactions` FROM `jobs`', {})
-        if response then
-        else
-        MySQL.Async.execute('ALTER TABLE jobs ADD COLUMN interactions VARCHAR(255)', {})
-        end
-    end)
-end
+
 
 function getinteractions(name)
     local row = MySQL.single.await('SELECT * FROM jobs WHERE `name` = ? LIMIT 1', { name })

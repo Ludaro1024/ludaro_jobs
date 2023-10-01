@@ -1,5 +1,5 @@
 Config = {}
-Config.Debug = 0 -- 0 = off, 1 = on -- 2 ALOT -- 3 EVERYTHING
+Config.Debug = 3 -- 0 = off, 1 = on -- 2 ALOT -- 3 EVERYTHING
 Config.Locale = 'de'
 Config.Menu = "NativeUI" -- ox_lib or NativeUI or NUI  CURRENTLY ONLY NATIVEUI
 Config.AdminGroups = {"admin", "owner"}
@@ -51,6 +51,10 @@ Config.Translation = {
         ["insertid"] = "ID eingeben:",
         ["deletegrade"] = "~r~Rang Löschen:",
         ["whitelisted"] = "Ist Gewhitelisted?",
+        ["nointeractions"] = "Dein Beruf hat keine Interaktionen",
+        ["loading"] = "Lade Jobs.. Bitte habe ein wenig geduld..",
+        ["bossmenu"] = "Boss-Menü",
+
     },
     ['en'] = {
         ["adminmenu"] = "Ludaro-Jobs Admin Menu",
@@ -77,6 +81,7 @@ Config.Translation = {
         ["createsociety"] = "Create Society",
         ["insertmoney"] = "Geld eingeben:",
         ["insertid"] = "Insert ID:",
+
     }
 }
 Config.Notify = function(txt, source)

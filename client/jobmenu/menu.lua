@@ -3,8 +3,7 @@ if Config.Menu == "ox_lib" then
 -- TO BE DONE
 end
 
-function updateitems()
-end
+
 
 if Config.Menu == "NativeUI" then
     middleitem = true
@@ -25,6 +24,7 @@ if Config.Menu == "NativeUI" then
 --print(ESX.DumpTable(jobs))
 deletedjobs = {}
     function openadminmenu()
+        menuclosed = false
         jobs = getjobs()
         number = 1
         if not _menuPool:IsAnyMenuOpen() then
@@ -34,13 +34,48 @@ deletedjobs = {}
     _menuPool:MouseControlsEnabled(false)
     _menuPool:MouseEdgeEnabled(false)
     _menuPool:ControlDisablingEnabled(false)
-    mainmenu:Visible(true)
+
+
+    lib.showTextUI(locale("loading"), {
+        position = "top-center",
+        icon = 'hand',
+        style = {
+            borderRadius = 0,
+            backgroundColor = 'black',
+            color = 'white'
+        }
+    })
+  
+
     changestuff = {}
+
+    done = false
+    for k,v in pairs(jobs) do
+        v.whitelist = false or lib.callback.await('ludaro_jobs:getwhitelist', false, v.name)
+        v.society = false or lib.callback.await('ludaro_jobs:getsocietyaccount', false, v.name)
+        v.jobinfo =  getjobinfo(v.label)
+        if k == #jobs then
+            done = true
+        end
+    end
+    
+
+    
+    while not done do
+        Citizen.Wait(1)
+    end
+
+
+
+   
+
+
+    
     for k,v in pairs(jobs) do
 
 
         if lib.table.contains(deletedjobs, v.name) then
-            print("job is deleted")
+            debug2("job is deleted")
         else
         jobsmenu = _menuPool:AddSubMenu(mainmenu, v.label, v.name)
         _menuPool:RefreshIndex()
@@ -51,6 +86,46 @@ deletedjobs = {}
          local name = NativeUI.CreateItem(locale("name"), "")
         jobsmenu.SubMenu:AddItem(name)
         name:RightLabel(v.name)
+
+
+        jobsmenu.SubMenu.OnMenuClosed = function(menu)
+print(#changestuff)
+         if #changestuff > 0 then
+             -- do something
+             local alert = lib.alertDialog({
+                header = locale("unsaved"),
+                content = locale("you have unsaved content"),
+                centered = true,
+                cancel = true
+            })
+            if alert == "confirm" then
+                 for k,v in pairs(changestuff) do
+        
+        if v.name then
+            print("ah")
+            TriggerServerEvent("ludaro_jobs:changename", v.job, v.name)
+        end
+        if v.label then
+            TriggerServerEvent("ludaro_jobs:labelch", v.job, v.label)
+        end
+        if v.whitelist ~= nil then
+            
+            TriggerServerEvent("ludaro_jobs:setwhitelist", v.job, v.whitelist)
+        end
+
+        if v.bossmenu then
+            menuclosed = true
+            TriggerServerEvent("ludaro_jobs:setbossmenu", v.job, v.bossmenu)
+        end
+     end
+    else
+        changestuff = {}
+        _menuPool:CloseAllMenus()
+        openadminmenu()
+    end
+         end
+        
+        end
         name.Activated = function(sender, index)
             newname = KeyboardInput(locale("insertname"), "", 30)
             if newname then
@@ -68,10 +143,9 @@ deletedjobs = {}
                 table.insert(changestuff, { job = v.label, label = newlabel})
             end
         end
-        whitelisted = false or lib.callback.await('ludaro_jobs:getwhitelist', false, v.name)
         isWhitelistedadd = NativeUI.CreateCheckboxItem(locale("whitelisted"), false, "")
         jobsmenu.SubMenu:AddItem(isWhitelistedadd)
-        isWhitelistedadd.Checked = whitelisted
+        isWhitelistedadd.Checked = v.whitelisted or false
 
         isWhitelistedadd.CheckboxEvent = function(menu, item, checked)
             table.insert(changestuff, { job = v.label, whitelist = checked})
@@ -203,7 +277,7 @@ deletedjobs = {}
         table.sort(sortedInteractions, function(a, b) return a.prio < b.prio end)
         for _,inter in ipairs(sortedInteractions) do
             interactionitem = _menuPool:AddSubMenu(interactions.SubMenu, inter.name, "")
-            interactionss = lib.callback.await('ludaro_jobs:getinteractions', false, v.name)
+            -- interactionss = lib.callback.await('ludaro_jobs:getinteractions', false, v.name)
             if tonumber(interactionss) == 0 or interactionss == false or interactionss == true 
             or interactionss == nil then
                 isiconinjob = "❌"
@@ -234,7 +308,7 @@ deletedjobs = {}
             interactionitem.SubMenu:AddItem(prio)
             interactionitem.SubMenu:AddItem(name)
             interactionitem.SubMenu:AddItem(icon)
-if isiconinjob == "❌" then
+    if isiconinjob == "❌" then
             local deleteinter = _menuPool:AddSubMenu(interactionitem.SubMenu, locale("addinteraction"), "")
             deleteinter.Item:RightLabel(">")
             if middleitem then
@@ -265,9 +339,8 @@ if isiconinjob == "❌" then
         end
         end
 
-        local society = lib.callback.await('ludaro_jobs:getsocietyaccount', false, v.name)
-
-
+        society = v.society
+   
         if society == false then
                     local createsociety = NativeUI.CreateItem(locale("createsociety"), "")
                     jobsmenu.SubMenu:AddItem(createsociety)
@@ -278,7 +351,7 @@ if isiconinjob == "❌" then
                     end
         else
             local societymoney = NativeUI.CreateItem(locale("society-money"), "")
-            societymoney:RightLabel(society .. locale("$"))
+            societymoney:RightLabel(society or 0 .. locale("$"))
 
             societymoney.Activated = function(sender, index)
                 newsocietymoney = KeyboardInput(locale("insertmoney"), "", 30)
@@ -287,7 +360,36 @@ if isiconinjob == "❌" then
             
             end
             jobsmenu.SubMenu:AddItem(societymoney)
-        end      
+        end
+
+        --  coords2 = NativeUI.CreateItem(locale("coords"), VectorToString(GetEntityCoords(PlayerPedId())))
+        --     coords2.Activated = function(sender, index)
+        --         coords2:RightLabel(VectorToString(GetEntityCoords(PlayerPedId())))
+        --         table.insert(changestuff, { job = v.label, bossmenu = GetEntityCoords(PlayerPedId())})
+        --     end
+        --     jobsmenu.SubMenu:AddItem(coords2)
+
+        bossmenu = NativeUI.CreateItem(locale("bossmenu"), "")
+        jobsmenu.SubMenu:AddItem(bossmenu)
+        jobinfoo = json.decode(v.jobinfo)
+        if jobinfoo.bossmenu then
+            jobinfo = json.decode(jobinfo)
+            bossmenucoords = VectorToString(vector3(jobinfoo.bossmenu.x, jobinfoo.bossmenu.y, jobinfoo.bossmenu.z))
+        else
+            bossmenucoords = "none"
+        end
+    
+     --print(bossmenucoords)
+     bossmenu:RightLabel(bossmenucoords)
+
+        bossmenu.Activated = function(sender, index)
+           index.Label.Text._Text = VectorToString(GetEntityCoords(PlayerPedId()))
+           table.insert(changestuff, { job = v.label, bossmenu = GetEntityCoords(PlayerPedId())})
+          
+        end
+
+
+ 
 
 
 
@@ -307,7 +409,8 @@ if isiconinjob == "❌" then
             _menuPool:CloseAllMenus()
             openadminmenu()
         end
-         
+
+
 
         confirm = _menuPool:AddSubMenu(jobsmenu.SubMenu, locale("confirm"), "")
         confirm.Item:RightLabel(">")
@@ -326,7 +429,7 @@ if isiconinjob == "❌" then
         confirm.SubMenu:AddItem(yes)
 
         yes.Activated = function(sender, index)
-            print(ESX.DumpTable(changestuff))
+          
      for k,v in pairs(changestuff) do
         
         if v.name then
@@ -340,6 +443,11 @@ if isiconinjob == "❌" then
             
             TriggerServerEvent("ludaro_jobs:setwhitelist", v.job, v.whitelist)
         end
+
+        if v.bossmenu then
+            menuclosed = true
+            TriggerServerEvent("ludaro_jobs:setbossmenu", v.job, v.bossmenu)
+        end
      end
      _menuPool:CloseAllMenus()
         openadminmenu()
@@ -347,7 +455,11 @@ if isiconinjob == "❌" then
         end
       
     end
-end
+    
+    end
+
+    mainmenu:Visible(true)
+    lib.hideTextUI()
 
     addjob = _menuPool:AddSubMenu(mainmenu, locale("addjob"), "")
     addjob.Item:RightLabel(">")
@@ -454,13 +566,13 @@ end
                 end
             end
         end
+        
     end
    
 
 end
 end
 function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
-
 	AddTextEntry('FMMC_KEY_TIP1', TextEntry) 
 	DisplayOnscreenKeyboard(1, "FMMC_KEY_TIP1", "", ExampleText, "", "", "", MaxStringLenght)
 	blockinput = true
@@ -481,4 +593,15 @@ function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
 	end
 end
 
+
+
+function VectorToString(vector)
+    if type(vector) == "vector3" then
+        return "(" .. math.round(vector.x) .. ", " .. math.round(vector.y) .. ", " .. math.round(vector.z) .. ")"
+    elseif type(vector) == "vector4" then
+        return "(" .. math.round(vector.x) .. ", " .. math.round(vector.y) .. ", " .. math.round(vector.z) .. ", " .. math.round(vector.w) .. ")"
+    else
+        return "NONE"
+    end
+end
 

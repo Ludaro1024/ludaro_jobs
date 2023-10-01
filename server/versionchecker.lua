@@ -27,11 +27,13 @@ NewestVersion = 0
 
 print('^0--------------------------------------------------------------------')
 print("^3Ludaro-Jobs Version-Checker!")
+print(numberversion, numbernewestversion)
 if numberversion == nil or numbernewestversion == nil then
     print("Error with checking for updates! Current version: " .. Version .. " Newest Version:" .. numbernewestversion.. ' ^0('..Github..')')
-elseif numberversion > numbernewestversion  then
+elseif numberversion >= numbernewestversion  then
+
     print("^2"..resource.." ^1✓ ^5- Up to date! Version: ^0" .. Version .. ' Github: ^0('..Github..')')
-    if Config.Debug > 2 then
+    if Config.Debug >= 2 then
     print("Thanks for using Ludaro_Jobs ur Awesome!  because debug is on, here is a random message for  you:")
     printRandomString(randomfivemfunfacts)
     end
