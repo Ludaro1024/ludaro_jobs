@@ -5,21 +5,21 @@ end)
 -- FRAMEWORK END
 
 -- ADDONACCOUNT DATA
-lib.callback.register('ludaro_jobs:getsocietyaccount', function(source, name)
-    return getsocietyaccount(name)
+lib.callback.register('ludaro_jobs:getSocietyAccount', function(source, name)
+    return getSocietyAccount(name)
 end)
 
-lib.callback.register('ludaro_jobs:setsocietyaccount', function(source, name, howmuch)
-    return setsocietyaccount(name, howmuch)
+lib.callback.register('ludaro_jobs:setSocietyAccount', function(source, name, howmuch)
+    return setSocietyAccount(name, howmuch)
 end)
 
-lib.callback.register('ludaro_jobs:addtosocietyaccount', function(source, name, howmuch)
-    return addtosocietyaccount(name, howmuch)
+lib.callback.register('ludaro_jobs:addToSocietyAccount', function(source, name, howmuch)
+    return addToSocietyAccount(name, howmuch)
 end)
 
 
-lib.callback.register('ludaro_jobs:takefromsocietyaccount', function(source, name, howmuch)
-    return takefromsocietyaccount(name, howmuch)
+lib.callback.register('ludaro_jobs:takeFromSocietyAccount', function(source, name, howmuch)
+    return takeFromSocietyAccount(name, howmuch)
 end)
 -- ADDON ACCOUNT DATA END
 

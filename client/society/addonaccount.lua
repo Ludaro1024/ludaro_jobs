@@ -1,23 +1,20 @@
 lib = lib or {}
-function getsocietyaccount(name)
-    local count = lib.callback.await('ludaro_jobs:getsocietyaccount', false, name) or 0
-return count
-end
-
-function setsocietyaccount(name, howmuch)
-    local count = lib.callback.await('ludaro_jobs:setsocietyaccount', false, name, howmuch) or 0
+function getSocietyAccount(name)
+    local count = lib.callback.await('ludaro_jobs:getSocietyAccount', false, name) or 0
     return count
 end
 
-function addtosocietyaccount(name, howmuch)
-    local count = lib.callback.await('ludaro_jobs:addtosocietyaccount', false, name, howmuch) or 0
+function setSocietyAccount(name, howmuch)
+    local count = lib.callback.await('ludaro_jobs:setSocietyAccount', false, name, howmuch) or 0
     return count
 end
 
-function takefromsocietyaccount(name, howmuch)
-    local count = lib.callback.await('ludaro_jobs:takefromsocietyaccount', false, name, howmuch) or 0
+function addToSocietyAccount(name, howmuch)
+    local count = lib.callback.await('ludaro_jobs:addToSocietyAccount', false, name, howmuch) or 0
     return count
 end
 
-
-
+function takeFromSocietyAccount(name, howmuch)
+    local count = lib.callback.await('ludaro_jobs:takeFromSocietyAccount', false, name, howmuch) or 0
+    return count
+end

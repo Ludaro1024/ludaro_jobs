@@ -22,16 +22,16 @@ print("Ludaro Debugging Loaded check readme for debug commands and prints!")
 
 -- addonaccount
 if Config.Debug >= 2 then
-    print("added command /getsocietyaccount [account_name]")
-    print("added command /setsocietyaccount [name] [amount]")
-    print("added command /addtosocietyaccount [name] [amount]")
-    print("added command /takefromsocietyaccount [name] [amount]")
+    print("added command /getSocietyAccount [account_name]")
+    print("added command /setSocietyAccount [name] [amount]")
+    print("added command /addToSocietyAccount [name] [amount]")
+    print("added command /takeFromSocietyAccount [name] [amount]")
 
 
-    RegisterCommand("getsocietyaccount", function(source, args, rawCommand)
+    RegisterCommand("getSocietyAccount", function(source, args, rawCommand)
         if isAdmin() then
             if args[1] then
-                local count = getsocietyaccount(args[1])
+                local count = getSocietyAccount(args[1])
                 print(count)
                 Config.Notify(tostring(count))
             else
@@ -42,10 +42,10 @@ if Config.Debug >= 2 then
         end
     end)
 
-    RegisterCommand("setsocietyaccount", function(source, args, rawCommand)
+    RegisterCommand("setSocietyAccount", function(source, args, rawCommand)
         if isAdmin() then
             if args[1] and args[2] then
-                local count = setsocietyaccount(args[1], args[2])
+                local count = setSocietyAccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
             else
@@ -56,10 +56,10 @@ if Config.Debug >= 2 then
         end
     end)
 
-    RegisterCommand("addtosocietyaccount", function(source, args, rawCommand)
+    RegisterCommand("addToSocietyAccount", function(source, args, rawCommand)
         if isAdmin() then
             if args[1] and args[2] then
-                local count = addtosocietyaccount(args[1], args[2])
+                local count = addToSocietyAccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
             else
@@ -70,10 +70,10 @@ if Config.Debug >= 2 then
         end
     end)
 
-    RegisterCommand("takefromsocietyaccount", function(source, args, rawCommand)
+    RegisterCommand("takeFromSocietyAccount", function(source, args, rawCommand)
         if isAdmin() then
             if args[1] and args[2] then
-                local count = takefromsocietyaccount(args[1], args[2])
+                local count = takeFromSocietyAccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
             else
