@@ -15,11 +15,7 @@ end
 
 function isAdmin()
     local group = getGroup()
-    if lib.table.contains(Config.AdminGroups, group) then
-        return true
-    else
-        return false
-    end
+    return lib.table.contains(Config.AdminGroups, group)
 end
 
 function locale(msg)
