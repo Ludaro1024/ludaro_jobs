@@ -1,48 +1,48 @@
-function getinteractionname(interaction)
+function getInteractionName(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return interaction
     end
-return Config.Interactions[string.lower(interaction)].name
+    return Config.Interactions[string.lower(interaction)].name
 end
 
-function getinteractioneventtype(interaction)
+function getInteractionEventType(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return false
     end
-return Config.Interactions[string.lower(interaction)].eventtype
+    return Config.Interactions[string.lower(interaction)].eventtype
 end
 
-function getinteractioneventname(interaction)
+function getInteractionEventName(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return "ludaro_jobs:interactionserror"
     end
-return Config.Interactions[string.lower(interaction)].eventname
+    return Config.Interactions[string.lower(interaction)].eventname
 end
 
-function getinteractionicon(interaction)
+function getInteractionIcon(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return interaction
     end
-return Config.Interactions[string.lower(interaction)].icon
+    return Config.Interactions[string.lower(interaction)].icon
 end
 
-function geteventargs(interaction)
+function getEventArgs(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return false
-end
-return Config.Interactions[string.lower(interaction)].eventargs
+    end
+    return Config.Interactions[string.lower(interaction)].eventargs
 end
 
-function getprio(interaction)
+function getPrio(interaction)
     if Config.Interactions[string.lower(interaction)] == nil then
         return false
-end
-return Config.Interactions[string.lower(interaction)].prio
+    end
+    return Config.Interactions[string.lower(interaction)].prio
 end
 
-function getallinteractions()
+function getAllinteractions()
     local interactions = {}
-    for k, v in pairs(Config.Interactions) do
+    for k, _ in pairs(Config.Interactions) do
         table.insert(interactions, k)
     end
     return interactions

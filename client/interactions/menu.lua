@@ -1,7 +1,7 @@
 if Config.Menu == "NativeUI" then
     function openinteractions(job)
         interactions = lib.callback.await('ludaro_jobs:getinteractions', false, job)
-        if tonumber(interactions) == 0 or interactions == false or interactions == true  then
+        if tonumber(interactions) == 0 or interactions == false or interactions == true then
             Config.Notify(locale("nointeractions"))
         else
             interactions = json.decode(interactions)
@@ -17,18 +17,18 @@ if Config.Menu == "NativeUI" then
                 table.insert(sortedInteractions, v)
             end
             table.sort(sortedInteractions, function(a, b)
-                return getprio(a) < getprio(b)
+                return getPrio(a) < getPrio(b)
             end)
             for k, v in ipairs(sortedInteractions) do
-                local item = NativeUI.CreateItem(getinteractionname(v) or v, "")
+                local item = NativeUI.CreateItem(getInteractionName(v) or v, "")
                 mainmenu:AddItem(item)
-                item:SetRightBadge(tonumber(getinteractionicon(v)) or 0)
+                item:SetRightBadge(tonumber(getInteractionIcon(v)) or 0)
                 item.Activated = function()
-                    if getinteractioneventtype(v) == true then
-                        TriggerEvent(getinteractioneventname(v) or "ludaro_jobs:interactionserror", geteventargs(v) or {})
+                    if getInteractionEventType(v) == true then
+                        TriggerEvent(getInteractionEventName(v) or "ludaro_jobs:interactionserror", getEventArgs(v) or {})
                     else
-                        TriggerServerEvent(getinteractioneventname(v) or "ludaro_jobs:interactionserror",
-                            geteventargs(v) or {})
+                        TriggerServerEvent(getInteractionEventName(v) or "ludaro_jobs:interactionserror",
+                            getEventArgs(v) or {})
                     end
                 end
             end

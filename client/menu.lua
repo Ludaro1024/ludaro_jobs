@@ -208,8 +208,8 @@ if Config.Menu == "NativeUI" then
                             interactionss = json.decode(interactionss)
                             local foundMatch = false
                             for z, u in pairs(interactionss) do
-                                --print(getinteractionname(u), inter.name)
-                                if getinteractionname(u) == inter.name then
+                                --print(getInteractionName(u), inter.name)
+                                if getInteractionName(u) == inter.name then
                                     foundMatch = true
                                     break
                                 end
