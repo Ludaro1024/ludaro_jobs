@@ -103,7 +103,7 @@ function setwhitelist(jobname, value)
     end
 end
 
-function getjobinfo(job)
+function getJobInfo(job)
     local row = MySQL.single.await('SELECT ludaro_jobs_info FROM jobs WHERE `label` = ? LIMIT 1', { job })
     if row then
         return row.ludaro_jobs_info

@@ -98,7 +98,7 @@ if Config.Debug >= 2 then
     RegisterCommand("createjob", function(source, args, rawCommand)
         if isAdmin() then
             if args[1] and args[2] then
-                local jobexist = doesjobexist(args[1])
+                local jobexist = doesJobExist(args[1])
                 if jobexist == nil or jobexist == false then
                     print("job already exists")
                     return

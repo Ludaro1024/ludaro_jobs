@@ -24,7 +24,7 @@ if Config.Menu == "NativeUI" then
     deletedjobs = {}
     function openadminmenu()
         menuclosed = false
-        jobs = getjobs()
+        jobs = getJobs()
         number = 1
         if not _menuPool:IsAnyMenuOpen() then
             mainmenu = NativeUI.CreateMenu(locale("adminmenu"), "")
@@ -52,7 +52,7 @@ if Config.Menu == "NativeUI" then
             for k, v in pairs(jobs) do
                 v.whitelist = false or lib.callback.await('ludaro_jobs:getwhitelist', false, v.name)
                 v.society = false or lib.callback.await('ludaro_jobs:getSocietyAccount', false, v.name)
-                v.jobinfo = getjobinfo(v.label)
+                v.jobinfo = getJobInfo(v.label)
                 if k == #jobs then
                     done = true
                 end

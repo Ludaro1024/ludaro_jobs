@@ -21,7 +21,7 @@ if Config.Menu == "NativeUI" then
     --print(ESX.DumpTable(jobs))
     deletedjobs = {}
     function openadminmenu()
-        jobs = getjobs()
+        jobs = getJobs()
         number = 1
         if not _menuPool:IsAnyMenuOpen() then
             mainmenu = NativeUI.CreateMenu(locale("adminmenu"), "")

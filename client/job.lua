@@ -1,27 +1,27 @@
-function doesjobexist(job)
-    return lib.callback.await('ludaro_jobs:doesjobexist', false, job)
+function doesJobExist(job)
+    return lib.callback.await('ludaro_jobs:doesJobExist', false, job)
 end
 
-function getjobname(id)
-    return lib.callback.await('ludaro_jobs:getjobname', false, id)
+function getJobName(id)
+    return lib.callback.await('ludaro_jobs:getJobName', false, id)
 end
 
-function getjoblabel(id)
-    return lib.callback.await('ludaro_jobs:getjoblabel', false, id)
+function getJobLabel(id)
+    return lib.callback.await('ludaro_jobs:getJobLabel', false, id)
 end
 
-function getgradename(id)
-    return lib.callback.await('ludaro_jobs:getgradename', false, id)
+function getGradeName(id)
+    return lib.callback.await('ludaro_jobs:getGradeName', false, id)
 end
 
-function getgradename(id)
-    return lib.callback.await('ludaro_jobs:getgradelabel', false, id)
+function getGradeName(id)
+    return lib.callback.await('ludaro_jobs:getGradelabel', false, id)
 end
 
-function getgrade(id)
-    return lib.callback.await('ludaro_jobs:getgrade', false, id)
+function getGrade(id)
+    return lib.callback.await('ludaro_jobs:getGrade', false, id)
 end
 
-function getjobs()
-    return lib.callback.await('ludaro_jobs:getjobs', false)
+function getJobs()
+    return lib.callback.await('ludaro_jobs:getJobs', false)
 end

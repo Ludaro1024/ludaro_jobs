@@ -25,29 +25,29 @@ end)
 
 
 -- JOB STUFF
-lib.callback.register('ludaro_jobs:doesjobexist', function(source, name)
-    return lib.table.contains(ESX.GetJobs(), name)
+lib.callback.register('ludaro_jobs:doesJobExist', function(source, name)
+    return lib.table.contains(ESX.getJobs(), name)
 end)
 
 
-lib.callback.register('ludaro_jobs:getgrade', function(source, id)
+lib.callback.register('ludaro_jobs:getGrade', function(source, id)
     return ESX.GetPlayerFromId(id or source).job.grade
 end)
 
-lib.callback.register('ludaro_jobs:getjoblabel', function(source, id)
+lib.callback.register('ludaro_jobs:getJobLabel', function(source, id)
     return ESX.GetPlayerFromId(id or source).job.label
 end)
 
-lib.callback.register('ludaro_jobs:getgradename', function(source, id)
+lib.callback.register('ludaro_jobs:getGradeName', function(source, id)
     return ESX.GetPlayerFromId(id or source).job.grade_name
 end)
 
-lib.callback.register('ludaro_jobs:getjobname', function(source, id)
+lib.callback.register('ludaro_jobs:getJobName', function(source, id)
     return getjob(source or id)
 end)
 
-lib.callback.register('ludaro_jobs:getjobs', function(source, id)
-    return getjobs()
+lib.callback.register('ludaro_jobs:getJobs', function(source, id)
+    return getJobs()
 end)
 -- JOB STUFF END
 

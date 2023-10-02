@@ -1,5 +1,5 @@
 RegisterCommand(Config.Commands.interactions, function(_, _, _)
-    local job = lib.callback.await('ludaro_jobs:getjobname', false)
+    local job = lib.callback.await('ludaro_jobs:getJobName', false)
     debug2(job)
     openInteractions(job)
 end)
