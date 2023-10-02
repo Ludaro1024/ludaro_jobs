@@ -1,7 +1,6 @@
-
--- FRAMEWORK 
+-- FRAMEWORK
 lib.callback.register('ludaro_jobs:getGroup', function(source)
-    return getgroup(source)
+    return getGroup(source)
 end)
 -- FRAMEWORK END
 
@@ -67,6 +66,5 @@ end)
 
 
 lib.callback.register('ludaro_jobs:getalljobinfo', function(source, job, value)
- return getalljobinfo()
+    return getalljobinfo()
 end)
-

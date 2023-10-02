@@ -18,7 +18,6 @@ function debug2(msg, level)
     end
 end
 
-
 print("Ludaro Debugging Loaded check readme for debug commands and prints!")
 
 -- addonaccount
@@ -29,67 +28,67 @@ if Config.Debug >= 2 then
     print("added command /takefromsocietyaccount [name] [amount]")
 
 
-   RegisterCommand("getsocietyaccount", function(source, args, rawCommand)
-    if isadmin() then 
-        if args[1] then
-            local count = getsocietyaccount(args[1])
-            print(count)
-            Config.Notify(tostring(count))
+    RegisterCommand("getsocietyaccount", function(source, args, rawCommand)
+        if isAdmin() then
+            if args[1] then
+                local count = getsocietyaccount(args[1])
+                print(count)
+                Config.Notify(tostring(count))
+            else
+                print("please add an account name")
+            end
         else
-            print("please add an account name")
+            print(isAdmin())
         end
-    else
-        print(isadmin())
-    end
-   end)
+    end)
 
     RegisterCommand("setsocietyaccount", function(source, args, rawCommand)
-     if isadmin() then 
-          if args[1] and args[2] then
+        if isAdmin() then
+            if args[1] and args[2] then
                 local count = setsocietyaccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
-          else
+            else
                 print("please add an account name and amount")
-          end
-     else
-          print(isadmin())
-     end
+            end
+        else
+            print(isAdmin())
+        end
     end)
 
     RegisterCommand("addtosocietyaccount", function(source, args, rawCommand)
-     if isadmin() then 
-          if args[1] and args[2] then
+        if isAdmin() then
+            if args[1] and args[2] then
                 local count = addtosocietyaccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
-          else
+            else
                 print("please add an account name and amount")
-          end
-     else
-          print(isadmin())
-     end
+            end
+        else
+            print(isAdmin())
+        end
     end)
 
     RegisterCommand("takefromsocietyaccount", function(source, args, rawCommand)
-     if isadmin() then 
-          if args[1] and args[2] then
+        if isAdmin() then
+            if args[1] and args[2] then
                 local count = takefromsocietyaccount(args[1], args[2])
                 print(count)
                 Config.Notify(tostring(count))
-          else
+            else
                 print("please add an account name and amount")
-          end
-     else
-          print(isadmin())
-     end
+            end
+        else
+            print(isAdmin())
+        end
     end)
     print("added command /refreshjobs")
     RegisterCommand("refreshjobs", function(source, args, rawCommand)
-        if isadmin() then 
+        if isAdmin() then
             TriggerServerEvent("ludaro_jobs:refreshjobs")
         else
-            print(isadmin())
+            print(isAdmin())
         end
     end)
 
@@ -97,9 +96,8 @@ if Config.Debug >= 2 then
     print("grade is optional")
 
     RegisterCommand("createjob", function(source, args, rawCommand)
-        if isadmin() then 
+        if isAdmin() then
             if args[1] and args[2] then
-
                 local jobexist = doesjobexist(args[1])
                 if jobexist == nil or jobexist == false then
                     print("job already exists")
@@ -113,7 +111,7 @@ if Config.Debug >= 2 then
                 print("Please provide both job_name and job_label.")
             end
         else
-            print(isadmin())
+            print(isAdmin())
         end
     end)
 end

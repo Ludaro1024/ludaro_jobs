@@ -6,17 +6,19 @@ if (GetResourceState("es_extended") == "started") then
     end
 end
 
-function getgroup(id)
+function getGroup(id)
     return ESX.GetPlayerFromId(id).getGroup() or "user"
 end
+
 function locale(msg)
     local translation = Config.Translation[Config.Locale][msg]
     if translation then
         return translation
     else
-       return "translation not found: " .. msg
+        return "translation not found: " .. msg
     end
 end
+
 function table.contains(table, element)
     for _, value in pairs(table) do
         if value == element then
