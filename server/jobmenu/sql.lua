@@ -133,6 +133,6 @@ function setbossmenu(job, value)
     end
 end
 
-function getalljobinfo()
+function getAllJobInfo()
 
 end

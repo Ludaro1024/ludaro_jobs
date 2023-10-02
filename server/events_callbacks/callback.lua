@@ -65,6 +65,6 @@ lib.callback.register('ludaro_jobs:getjobinfo', function(source, job, value)
 end)
 
 
-lib.callback.register('ludaro_jobs:getalljobinfo', function(source, job, value)
-    return getalljobinfo()
+lib.callback.register('ludaro_jobs:getAllJobInfo', function(source, job, value)
+    return getAllJobInfo()
 end)
