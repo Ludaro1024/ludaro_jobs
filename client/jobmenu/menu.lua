@@ -1,3 +1,4 @@
+-- TODO: make code readable, not everything in one file
 if Config.Menu == "ox_lib" then
     -- TO BE DONE
 end
