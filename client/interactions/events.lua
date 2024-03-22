@@ -1,0 +1,5 @@
+RegisterNetEvent('ludaro_jobs:interactionserror')
+AddEventHandler('ludaro_jobs:interactionserror', function()
+    consoleLog("error while starting event!", 1)
+    Config.Notify("error while using Interaction!")
+end)

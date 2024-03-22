@@ -1,0 +1,84 @@
+fx_version("cerulean")
+games({ "gta5" })
+lua54("yes")
+name("Ludaro_Jobs")
+version("alpha06")
+fx_raw("https://raw.githubusercontent.com/waschmaschvanlu/ludaro_jobs/main/fxmanifest.lua")
+github("https://github.com/waschmaschvanlu/ludaro_jobs")
+changelogfile("https://raw.githubusercontent.com/waschmaschvanlu/ludaro_jobs/main/server/changelog.lua")
+
+client_scripts({
+	"NativeUILua/Wrapper/Utility.lua",
+	"NativeUILua/UIElements/UIVisual.lua",
+	"NativeUILua/UIElements/UIResRectangle.lua",
+	"NativeUILua/UIElements/UIResText.lua",
+	"NativeUILua/UIElements/Sprite.lua",
+	"NativeUILua/UIMenu/elements/Badge.lua",
+	"NativeUILua/UIMenu/elements/Colours.lua",
+	"NativeUILua/UIMenu/elements/ColoursPanel.lua",
+	"NativeUILua/UIMenu/elements/StringMeasurer.lua",
+	"NativeUILua/UIMenu/items/UIMenuItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuCheckboxItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuListItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuSliderItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuSliderHeritageItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuColouredItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuProgressItem.lua",
+	"NativeUILua/UIMenu/items/UIMenuSliderProgressItem.lua",
+	"NativeUILua/UIMenu/windows/UIMenuHeritageWindow.lua",
+	"NativeUILua/UIMenu/panels/UIMenuGridPanel.lua",
+	"NativeUILua/UIMenu/panels/UIMenuHorizontalOneLineGridPanel.lua",
+	"NativeUILua/UIMenu/panels/UIMenuVerticalOneLineGridPanel.lua",
+	"NativeUILua/UIMenu/panels/UIMenuColourPanel.lua",
+	"NativeUILua/UIMenu/panels/UIMenuPercentagePanel.lua",
+	"NativeUILua/UIMenu/panels/UIMenuStatisticsPanel.lua",
+	"NativeUILua/UIMenu/UIMenu.lua",
+	"NativeUILua/UIMenu/MenuPool.lua",
+	"NativeUILua/UITimerBar/UITimerBarPool.lua",
+	"NativeUILua/UITimerBar/items/UITimerBarItem.lua",
+	"NativeUILua/UITimerBar/items/UITimerBarProgressItem.lua",
+	"NativeUILua/UITimerBar/items/UITimerBarProgressWithIconItem.lua",
+	"NativeUILua/UIProgressBar/UIProgressBarPool.lua",
+	"NativeUILua/UIProgressBar/items/UIProgressBarItem.lua",
+	"NativeUILua/NativeUI.lua",
+	"client/debug.lua",
+	"client/framework/*.lua",
+	"client/*.lua",
+	"client/society/*.lua",
+	"client/jobmenu/*.lua",
+	"client/bossmenu/threads/update.lua",
+	"client/jobmenu/menu/*.lua",
+	"client/bossmenu/*.lua",
+	"client/bossmenu/menu/*.lua",
+	"client/bossmenu/threads/*.lua",
+	"client/interactions/*.lua",
+	"client/interactions/menu/*.lua",
+	"client/garage/*.lua",
+	"client/garage/menu/*.lua",
+})
+
+server_script({
+	"@oxmysql/lib/MySQL.lua",
+	"server/debug.lua",
+	"server/*.lua",
+	"server/events_callbacks/*.lua",
+	"server/jobmenu/*.lua",
+	"server/interactions/*.lua",
+	"server/bossmenu/*.lua",
+	"server/garage/*.lua",
+	"server/webhook/*.lua",
+})
+shared_scripts({
+	"@ox_lib/init.lua",
+	"shared/debug.lua",
+	"shared/*.lua",
+	"shared/interactions/*.lua",
+	"shared/jobmenu/*.lua",
+	"shared/bossmenu/*.lua",
+})
+
+requires({
+	"ox_lib",
+	"oxmysql",
+	"esx_addonaccount",
+})
