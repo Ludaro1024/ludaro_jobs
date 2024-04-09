@@ -5,6 +5,7 @@ Version = GetResourceMetadata(resource, 'version', 0)
 rawfxmanifest = GetResourceMetadata(resource, 'fx_raw', 0)
 updatefile = GetResourceMetadata(resource, 'changelogfile', 0)
 function getNumberFromString(str)
+    if str == nil then str = 0 end
     local number = tonumber(string.match(str, '%d+%.?%d*'))
     return number
 end
