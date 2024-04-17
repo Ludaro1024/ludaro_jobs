@@ -12,16 +12,12 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 
 ## Features that will come:
 
-- [x] Add a Job Creation/Deletion/Edit System
 - [ ] Add a Job Blip System
 - [ ] Add a Job Marker System
 - [ ] Add a Job Vehicle System (Job-Garage)
 - [ ] Add a Job Weapon System
 - [ ] Add a Job Outfit System
 - [ ] Add a Job Money Wash System
-- [ ] Add a Job Money Deposit System
-- [ ] Add a Job Money Withdraw System
-- [ ] Add a Job Money Transfer System
 - [ ] Add a Job Alliances System
 - [ ] Add Job Fire/Employ System
 - [ ] Add a Job Uniform System
@@ -67,3 +63,7 @@ This Script is made by me (Ludaro) in my freetime and i will try to fix the bugs
 ## Features that are done:
 
 - [x] Add a Society System (esx_addonaccount // esx_society)
+- [x] Add a Job Money Deposit System
+- [x] Add a Job Money Withdraw System
+- [x] Add a Job Money Transfer System
+- [x] Add a Job Creation/Deletion/Edit System
